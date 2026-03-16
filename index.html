@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pulse App Prototype Enhanced</title>
+<style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f2f2f7; }
+    .hidden { display: none; }
+    .active { display: block; }/* Top Nav */
+.nav { display: flex; justify-content: space-around; background: #fff; padding: 10px 0; position: fixed; bottom: 0; width: 100%; box-shadow: 0 -2px 6px rgba(0,0,0,0.1); }
+.nav button { border: none; background: none; font-size: 16px; cursor: pointer; }
+.nav button.active-tab { color: #007BFF; font-weight: bold; }
+
+/* Screens */
+.screen { display: none; padding: 60px 20px 80px 20px; min-height: 100vh; box-sizing: border-box; }
+
+/* Home/Community */
+.video-feed { display: flex; flex-direction: column; gap: 15px; }
+.video-card { background: #fff; border-radius: 10px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.video-card img { width: 100%; border-radius: 10px; }
+.video-card .info { display: flex; justify-content: space-between; padding-top: 5px; }
+.video-card .info button { border: none; background: none; cursor: pointer; }
+
+/* Profile */
+.profile { background: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+.badges { display: flex; gap: 10px; margin-top: 10px; }
+.badge { padding: 5px 10px; border-radius: 12px; font-size: 12px; color: #fff; }
+.premium { background: gold; }
+.vip { background: #4caf50; }
+
+/* Groups */
+.group { background: #fff; border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+.group h3 { margin: 0 0 5px 0; }
+.live { color: red; font-weight: bold; }
+.pool { font-size: 14px; color: #555; }
+
+/* Voting */
+.vote-card { background: #fff; border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+.vote-card button { margin-top: 10px; padding: 5px 10px; border: none; border-radius: 8px; background: #007BFF; color: #fff; cursor: pointer; }
+.vote-count { margin-left: 10px; font-weight: bold; }
+
+/* AI Panel */
+.ai-panel { background: #fff; border-radius: 10px; padding: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+.ai-panel button { margin-top: 10px; padding: 5px 10px; border: none; border-radius: 8px; background: #28a745; color: #fff; cursor: pointer; }
+
+/* Interactive reactions */
+.reaction-btn { margin-right: 10px; cursor: pointer; transition: transform 0.2s; }
+.reaction-btn:active { transform: scale(1.3); }
+
+</style>
+</head>
+<body><!-- Home Screen --><div id="home" class="screen active">
+    <h2>Pulse Community</h2>
+    <div class="video-feed">
+        <div class="video-card">
+            <img src="https://via.placeholder.com/350x180" alt="Video Thumbnail">
+            <div class="info">
+                <span>Video Title 1</span>
+                <div>
+                    <button class="reaction-btn" onclick="react(this, '❤️')">❤️ <span>120</span></button>
+                    <button class="reaction-btn" onclick="react(this, '😂')">😂 <span>40</span></button>
+                </div>
+            </div>
+        </div>
+        <div class="video-card">
+            <img src="https://via.placeholder.com/350x180" alt="Video Thumbnail">
+            <div class="info">
+                <span>Video Title 2</span>
+                <div>
+                    <button class="reaction-btn" onclick="react(this, '❤️')">❤️ <span>95</span></button>
+                    <button class="reaction-btn" onclick="react(this, '😂')">😂 <span>30</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- Groups Screen --><div id="groups" class="screen">
+    <h2>Groups</h2>
+    <div class="group">
+        <h3>Music Producers <span class="live">LIVE</span> <span class="badge vip">VIP</span></h3>
+        <p class="pool">Pool: 50 posts, 10 premium, 2 VIP</p>
+        <button onclick="alert('Join Live Session')">Join Live</button>
+    </div>
+    <div class="group">
+        <h3>Developers Guild <span class="badge premium">Premium</span></h3>
+        <p class="pool">Pool: 30 posts, 5 premium, 1 VIP</p>
+        <button onclick="alert('Join Live Session')">Join Live</button>
+    </div>
+</div><!-- Voting Screen --><div id="voting" class="screen">
+    <h2>Voting & Governance</h2>
+    <div class="vote-card">
+        <p>Vote: Who is the wisest in Music Producers Group?</p>
+        <button onclick="castVote(this)">Vote</button><span class="vote-count">0</span>
+    </div>
+    <div class="vote-card">
+        <p>Vote: Group Monthly Contest Winner</p>
+        <button onclick="castVote(this)">Vote</button><span class="vote-count">0</span>
+    </div>
+</div><!-- AI Assistance Screen --><div id="ai" class="screen">
+    <h2>AI Assistant</h2>
+    <div class="ai-panel">
+        <p>AI Tip: Use clear and concise language in your posts for better engagement.</p>
+        <button onclick="alert('AI Simplification Applied')">Simplify Post</button>
+        <button onclick="alert('AI Moderation Check Done')">Moderation Check</button>
+    </div>
+</div><!-- Profile Screen --><div id="profile" class="screen">
+    <h2>My Profile</h2>
+    <div class="profile">
+        <p>Name: Emmanuelofficial11</p>
+        <p>Followers: 1200</p>
+        <div class="badges">
+            <span class="badge premium">Premium ⭐</span>
+            <span class="badge vip">VIP ✔</span>
+        </div>
+        <p>Posts: 45</p>
+        <p>Groups Joined: 5</p>
+    </div>
+</div><!-- Bottom Nav --><div class="nav">
+    <button class="active-tab" onclick="switchScreen('home', this)">Home</button>
+    <button onclick="switchScreen('groups', this)">Groups</button>
+    <button onclick="switchScreen('voting', this)">Voting</button>
+    <button onclick="switchScreen('ai', this)">AI</button>
+    <button onclick="switchScreen('profile', this)">Profile</button>
+</div><script>
+function switchScreen(screenId, btn) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+    document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active-tab'));
+    btn.classList.add('active-tab');
+}
+
+function react(btn, emoji) {
+    let span = btn.querySelector('span');
+    span.textContent = parseInt(span.textContent) + 1;
+}
+
+function castVote(btn) {
+    let countSpan = btn.nextElementSibling;
+    countSpan.textContent = parseInt(countSpan.textContent) + 1;
+    alert('Vote Cast!');
+}
+</script></body>
+</html>
