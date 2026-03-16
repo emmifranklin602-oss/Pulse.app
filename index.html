@@ -7,51 +7,53 @@
 <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #f2f2f7; }
     .hidden { display: none; }
-    .active { display: block; }/* Top Nav */
-.nav { display: flex; justify-content: space-around; background: #fff; padding: 10px 0; position: fixed; bottom: 0; width: 100%; box-shadow: 0 -2px 6px rgba(0,0,0,0.1); }
-.nav button { border: none; background: none; font-size: 16px; cursor: pointer; }
-.nav button.active-tab { color: #007BFF; font-weight: bold; }
+    .active { display: block; }
 
-/* Screens */
-.screen { display: none; padding: 60px 20px 80px 20px; min-height: 100vh; box-sizing: border-box; }
+    /* Top Nav */
+    .nav { display: flex; justify-content: space-around; background: #fff; padding: 10px 0; position: fixed; bottom: 0; width: 100%; box-shadow: 0 -2px 6px rgba(0,0,0,0.1); }
+    .nav button { border: none; background: none; font-size: 16px; cursor: pointer; }
+    .nav button.active-tab { color: #007BFF; font-weight: bold; }
 
-/* Home/Community */
-.video-feed { display: flex; flex-direction: column; gap: 15px; }
-.video-card { background: #fff; border-radius: 10px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-.video-card img { width: 100%; border-radius: 10px; }
-.video-card .info { display: flex; justify-content: space-between; padding-top: 5px; }
-.video-card .info button { border: none; background: none; cursor: pointer; }
+    /* Screens */
+    .screen { display: none; padding: 60px 20px 80px 20px; min-height: 100vh; box-sizing: border-box; }
 
-/* Profile */
-.profile { background: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-.badges { display: flex; gap: 10px; margin-top: 10px; }
-.badge { padding: 5px 10px; border-radius: 12px; font-size: 12px; color: #fff; }
-.premium { background: gold; }
-.vip { background: #4caf50; }
+    /* Home/Community */
+    .video-feed { display: flex; flex-direction: column; gap: 15px; }
+    .video-card { background: #fff; border-radius: 10px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .video-card img { width: 100%; border-radius: 10px; }
+    .video-card .info { display: flex; justify-content: space-between; padding-top: 5px; }
+    .video-card .info button { border: none; background: none; cursor: pointer; }
 
-/* Groups */
-.group { background: #fff; border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-.group h3 { margin: 0 0 5px 0; }
-.live { color: red; font-weight: bold; }
-.pool { font-size: 14px; color: #555; }
+    /* Profile */
+    .profile { background: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .badges { display: flex; gap: 10px; margin-top: 10px; }
+    .badge { padding: 5px 10px; border-radius: 12px; font-size: 12px; color: #fff; }
+    .premium { background: gold; }
+    .vip { background: #4caf50; }
 
-/* Voting */
-.vote-card { background: #fff; border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-.vote-card button { margin-top: 10px; padding: 5px 10px; border: none; border-radius: 8px; background: #007BFF; color: #fff; cursor: pointer; }
-.vote-count { margin-left: 10px; font-weight: bold; }
+    /* Groups */
+    .group { background: #fff; border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .group h3 { margin: 0 0 5px 0; }
+    .live { color: red; font-weight: bold; }
+    .pool { font-size: 14px; color: #555; }
 
-/* AI Panel */
-.ai-panel { background: #fff; border-radius: 10px; padding: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-.ai-panel button { margin-top: 10px; padding: 5px 10px; border: none; border-radius: 8px; background: #28a745; color: #fff; cursor: pointer; }
+    /* Voting */
+    .vote-card { background: #fff; border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .vote-card button { margin-top: 10px; padding: 5px 10px; border: none; border-radius: 8px; background: #007BFF; color: #fff; cursor: pointer; }
+    .vote-count { margin-left: 10px; font-weight: bold; }
 
-/* Interactive reactions */
-.reaction-btn { margin-right: 10px; cursor: pointer; transition: transform 0.2s; }
-.reaction-btn:active { transform: scale(1.3); }
+    /* AI Panel */
+    .ai-panel { background: #fff; border-radius: 10px; padding: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .ai-panel button { margin-top: 10px; padding: 5px 10px; border: none; border-radius: 8px; background: #28a745; color: #fff; cursor: pointer; }
 
-/* Simple login screen */
-#loginScreen { display: none; padding: 40px; text-align: center; }
-#loginScreen input { display: block; width: 80%; margin: 10px auto; padding: 10px; }
-#loginScreen button { padding: 10px 20px; margin: 10px; cursor: pointer; }
+    /* Reactions */
+    .reaction-btn { margin-right: 10px; cursor: pointer; transition: transform 0.2s; }
+    .reaction-btn:active { transform: scale(1.3); }
+
+    /* Login Screen */
+    #loginScreen { display: none; padding: 40px; text-align: center; }
+    #loginScreen input { display: block; width: 80%; margin: 10px auto; padding: 10px; }
+    #loginScreen button { padding: 10px 20px; margin: 10px; cursor: pointer; }
 </style>
 
 <!-- Firebase SDKs -->
@@ -62,163 +64,153 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js"></script>
 
 <script>
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyDbQbNhFbe2qUA_A50Lsi3nPM5P9_kzF74",
-  authDomain: "pulse1-9ec8b.firebaseapp.com",
-  databaseURL: "https://pulse1-9ec8b-default-rtdb.firebaseio.com",
-  projectId: "pulse1-9ec8b",
-  storageBucket: "pulse1-9ec8b.firebasestorage.app",
-  messagingSenderId: "588669674303",
-  appId: "1:588669674303:web:d10003b6aa219a8d15e98a",
-  measurementId: "G-SNLP8XJ1GB"
-};
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyDbQbNhFbe2qUA_A50Lsi3nPM5P9_kzF74",
+    authDomain: "pulse1-9ec8b.firebaseapp.com",
+    databaseURL: "https://pulse1-9ec8b-default-rtdb.firebaseio.com",
+    projectId: "pulse1-9ec8b",
+    storageBucket: "pulse1-9ec8b.firebasestorage.app",
+    messagingSenderId: "588669674303",
+    appId: "1:588669674303:web:d10003b6aa219a8d15e98a",
+    measurementId: "G-SNLP8XJ1GB"
+  };
 
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const analytics = firebase.analytics();
-const auth = firebase.auth();
-const db = firebase.database();
-const storage = firebase.storage();
+  // Initialize Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const analytics = firebase.analytics();
+  const auth = firebase.auth();
+  const db = firebase.database();
+  const storage = firebase.storage();
 
-// Check authentication
-auth.onAuthStateChanged(user => {
+  // Check login state
+  auth.onAuthStateChanged(user => {
     if(user){
         document.getElementById('loginScreen').style.display = 'none';
         document.querySelectorAll('.screen').forEach(s => s.style.display = 'block');
-        loadVideos();
-        loadGroups();
+        document.getElementById('home').classList.add('active'); // default tab
     }else{
         document.getElementById('loginScreen').style.display = 'block';
         document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
     }
-});
+  });
 
-// Sign up and login
-function signUp(){
+  // Sign up
+  function signUp(){
     const email = document.getElementById('email').value;
     const pass = document.getElementById('password').value;
     auth.createUserWithEmailAndPassword(email, pass)
     .then(() => alert('Account Created!'))
     .catch(err => alert(err.message));
-}
+  }
 
-function login(){
+  // Login
+  function login(){
     const email = document.getElementById('email').value;
     const pass = document.getElementById('password').value;
     auth.signInWithEmailAndPassword(email, pass)
     .then(() => alert('Logged in!'))
     .catch(err => alert(err.message));
-}
+  }
 
-function logout(){
+  // Logout
+  function logout(){
     auth.signOut();
     alert('Logged out!');
-}
+  }
 
-// Switch screens
-function switchScreen(screenId, btn) {
+  // Switch screens
+  function switchScreen(screenId, btn){
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.screen').forEach(s => s.style.display = 'none'); // hide all
+    document.getElementById(screenId).style.display = 'block';
     document.getElementById(screenId).classList.add('active');
+
     document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active-tab'));
     btn.classList.add('active-tab');
-}
+  }
 
-// Video reactions
-function react(btn, emoji, videoId){
+  // Reactions
+  function react(btn, emoji){
     let span = btn.querySelector('span');
-    let newCount = parseInt(span.textContent)+1;
-    span.textContent = newCount;
-    db.ref('videos/'+videoId+'/reactions/'+emoji).set(newCount);
-}
+    span.textContent = parseInt(span.textContent) + 1;
+  }
 
-// Voting
-function castVote(btn, voteId){
+  // Voting
+  function castVote(btn){
     let countSpan = btn.nextElementSibling;
-    let newCount = parseInt(countSpan.textContent)+1;
-    countSpan.textContent = newCount;
-    db.ref('votes/'+voteId+'/votes/'+auth.currentUser.uid).set(true);
+    countSpan.textContent = parseInt(countSpan.textContent) + 1;
     alert('Vote Cast!');
-}
-
-// Load videos from Firebase
-function loadVideos(){
-    const feed = document.querySelector('.video-feed');
-    feed.innerHTML = '';
-    db.ref('videos').once('value').then(snapshot=>{
-        snapshot.forEach(videoSnap=>{
-            const video = videoSnap.val();
-            const videoId = videoSnap.key;
-            const card = document.createElement('div');
-            card.classList.add('video-card');
-            card.innerHTML = `
-                <img src="${video.thumbnailUrl}" alt="Video Thumbnail">
-                <div class="info">
-                    <span>${video.title}</span>
-                    <div>
-                        <button class="reaction-btn" onclick="react(this,'❤️','${videoId}')">❤️ <span>${video.reactions?.['❤️'] || 0}</span></button>
-                        <button class="reaction-btn" onclick="react(this,'😂','${videoId}')">😂 <span>${video.reactions?.['😂'] || 0}</span></button>
-                    </div>
-                </div>
-            `;
-            feed.appendChild(card);
-        });
-    });
-}
-
-// Load groups from Firebase
-function loadGroups(){
-    const groupContainer = document.getElementById('groups');
-    db.ref('groups').once('value').then(snapshot=>{
-        snapshot.forEach(groupSnap=>{
-            const group = groupSnap.val();
-            const div = document.createElement('div');
-            div.classList.add('group');
-            div.innerHTML = `<h3>${group.name} ${group.type==='vip'?'<span class="badge vip">VIP</span>':group.type==='premium'?'<span class="badge premium">Premium</span>':''}</h3>
-                             <p class="pool">Pool: ${group.posts?.length || 0} posts, ${group.premiumCount || 0} premium, ${group.vipCount || 0} VIP</p>
-                             <button onclick="alert('Join Live Session')">Join Live</button>`;
-            groupContainer.appendChild(div);
-        });
-    });
-}
+  }
 </script>
 </head>
 <body>
 
-<!-- Login Screen -->
+<!-- Login -->
 <div id="loginScreen">
-    <h2>Welcome to Pulse</h2>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Login</button>
-    <button onclick="signUp()">Sign Up</button>
+  <h2>Welcome to Pulse</h2>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <button onclick="signUp()">Sign Up</button>
 </div>
 
-<!-- Home Screen -->
-<div id="home" class="screen active">
+<!-- Home -->
+<div id="home" class="screen">
     <h2>Pulse Community</h2>
-    <div class="video-feed"></div>
+    <div class="video-feed">
+        <div class="video-card">
+            <img src="https://via.placeholder.com/350x180" alt="Video Thumbnail">
+            <div class="info">
+                <span>Video Title 1</span>
+                <div>
+                    <button class="reaction-btn" onclick="react(this,'❤️')">❤️ <span>120</span></button>
+                    <button class="reaction-btn" onclick="react(this,'😂')">😂 <span>40</span></button>
+                </div>
+            </div>
+        </div>
+        <div class="video-card">
+            <img src="https://via.placeholder.com/350x180" alt="Video Thumbnail">
+            <div class="info">
+                <span>Video Title 2</span>
+                <div>
+                    <button class="reaction-btn" onclick="react(this,'❤️')">❤️ <span>95</span></button>
+                    <button class="reaction-btn" onclick="react(this,'😂')">😂 <span>30</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- Groups Screen -->
+<!-- Groups -->
 <div id="groups" class="screen">
     <h2>Groups</h2>
+    <div class="group">
+        <h3>Music Producers <span class="live">LIVE</span> <span class="badge vip">VIP</span></h3>
+        <p class="pool">Pool: 50 posts, 10 premium, 2 VIP</p>
+        <button onclick="alert('Join Live Session')">Join Live</button>
+    </div>
+    <div class="group">
+        <h3>Developers Guild <span class="badge premium">Premium</span></h3>
+        <p class="pool">Pool: 30 posts, 5 premium, 1 VIP</p>
+        <button onclick="alert('Join Live Session')">Join Live</button>
+    </div>
 </div>
 
-<!-- Voting Screen -->
+<!-- Voting -->
 <div id="voting" class="screen">
     <h2>Voting & Governance</h2>
     <div class="vote-card">
         <p>Vote: Who is the wisest in Music Producers Group?</p>
-        <button onclick="castVote(this,'vote1')">Vote</button><span class="vote-count">0</span>
+        <button onclick="castVote(this)">Vote</button><span class="vote-count">0</span>
     </div>
     <div class="vote-card">
         <p>Vote: Group Monthly Contest Winner</p>
-        <button onclick="castVote(this,'vote2')">Vote</button><span class="vote-count">0</span>
+        <button onclick="castVote(this)">Vote</button><span class="vote-count">0</span>
     </div>
 </div>
 
-<!-- AI Assistance Screen -->
+<!-- AI -->
 <div id="ai" class="screen">
     <h2>AI Assistant</h2>
     <div class="ai-panel">
@@ -228,7 +220,7 @@ function loadGroups(){
     </div>
 </div>
 
-<!-- Profile Screen -->
+<!-- Profile -->
 <div id="profile" class="screen">
     <h2>My Profile</h2>
     <div class="profile">
@@ -252,5 +244,6 @@ function loadGroups(){
     <button onclick="switchScreen('ai', this)">AI</button>
     <button onclick="switchScreen('profile', this)">Profile</button>
 </div>
+
 </body>
 </html>
