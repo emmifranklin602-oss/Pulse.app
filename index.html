@@ -48,30 +48,32 @@ const auth = firebase.auth();
 const db = firebase.database();
 const storage = firebase.storage();
 
-// ================= AUTH STATE HANDLING =================
+// ================= FIXED AUTH HANDLING =================
 
-// Hide everything first
+// Hide all screens and nav initially
 document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
 document.querySelector('.nav').style.display = 'none';
 
-// Listen for Firebase auth changes
-auth.onAuthStateChanged(user => {
+// Wait until Firebase finishes checking login status
+auth.authStateReady().then(() => {
+    // Hide loading screen once initial auth check is done
     document.getElementById('loadingScreen').style.display = 'none';
 
+    const user = auth.currentUser;
     if (user) {
-        // User is signed in → show main UI
+        // User is logged in — show main UI
         document.getElementById('loginScreen').style.display = 'none';
         document.querySelector('.nav').style.display = 'flex';
         document.getElementById('home').style.display = 'block';
     } else {
-        // No user → show only login
+        // User not logged in — show login only
         document.getElementById('loginScreen').style.display = 'block';
         document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
         document.querySelector('.nav').style.display = 'none';
     }
 });
 
-// =============== AUTH ACTIONS =================
+// ================= AUTH ACTIONS =================
 function signUp(){
     const email = document.getElementById('email').value;
     const pass = document.getElementById('password').value;
@@ -99,7 +101,7 @@ function logout(){
     alert('Logged out!');
 }
 
-// =============== UI INTERACTIONS =================
+// ================= UI INTERACTIONS =================
 function switchScreen(screenId, btn) {
     document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
     document.getElementById(screenId).style.display = 'block';
