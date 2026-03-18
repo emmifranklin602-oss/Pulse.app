@@ -8,7 +8,7 @@
     body { margin: 0; font-family: Arial, sans-serif; background: #f2f2f7; }
     .hidden { display: none; }
     .active { display: block; }
-  
+
     /* Top Nav */
     .nav { display: flex; justify-content: space-around; background: #fff; padding: 10px 0; position: fixed; bottom: 0; width: 100%; box-shadow: 0 -2px 6px rgba(0,0,0,0.1); }
     .nav button { border: none; background: none; font-size: 16px; cursor: pointer; }
@@ -19,8 +19,6 @@
 
     /* Loading Screen */
     #loadingScreen { text-align: center; padding: 40px; font-size: 24px; }
-    
-    /* (your existing styles omitted here for brevity...) */
 </style>
 
 <!-- Firebase SDKs -->
@@ -50,30 +48,30 @@ const auth = firebase.auth();
 const db = firebase.database();
 const storage = firebase.storage();
 
-// START: AUTH STATE HANDLING
-// Show a loading screen until Firebase auth state is confirmed
+// ================= AUTH STATE HANDLING =================
+
+// Hide everything first
+document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
+document.querySelector('.nav').style.display = 'none';
+
+// Listen for Firebase auth changes
 auth.onAuthStateChanged(user => {
     document.getElementById('loadingScreen').style.display = 'none';
 
     if (user) {
-        // User is signed in → hide login, show home + nav
+        // User is signed in → show main UI
         document.getElementById('loginScreen').style.display = 'none';
-
-        // Show home screen by default
-        document.getElementById('home').style.display = 'block';
-
-        // Show navigation bar
         document.querySelector('.nav').style.display = 'flex';
+        document.getElementById('home').style.display = 'block';
     } else {
-        // No user → show only login screen
+        // No user → show only login
         document.getElementById('loginScreen').style.display = 'block';
         document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
-        
-        // Hide navigation bar while logged out
         document.querySelector('.nav').style.display = 'none';
     }
 });
 
+// =============== AUTH ACTIONS =================
 function signUp(){
     const email = document.getElementById('email').value;
     const pass = document.getElementById('password').value;
@@ -101,6 +99,7 @@ function logout(){
     alert('Logged out!');
 }
 
+// =============== UI INTERACTIONS =================
 function switchScreen(screenId, btn) {
     document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
     document.getElementById(screenId).style.display = 'block';
@@ -108,14 +107,11 @@ function switchScreen(screenId, btn) {
     btn.classList.add('active-tab');
 }
 
-// Reactions
-function react(btn, emoji){
+function react(btn){
     let span = btn.querySelector('span');
-    let count = parseInt(span.textContent);
-    span.textContent = count + 1;
+    span.textContent = parseInt(span.textContent) + 1;
 }
 
-// Voting
 function castVote(btn){
     let span = btn.nextElementSibling;
     span.textContent = parseInt(span.textContent) + 1;
@@ -136,16 +132,15 @@ function castVote(btn){
     <button onclick="signUp()">Sign Up</button>
 </div>
 
-<!-- Your original screens (Home, Groups, Voting, AI, Profile) come here unchanged -->
-
-<div id="home" class="screen"> ... </div>  
-<div id="groups" class="screen"> ... </div>  
-<div id="voting" class="screen"> ... </div>  
-<div id="ai" class="screen"> ... </div>  
-<div id="profile" class="screen"> ... </div>
+<!-- Your original screens -->
+<div id="home" class="screen"> … </div>
+<div id="groups" class="screen"> … </div>
+<div id="voting" class="screen"> … </div>
+<div id="ai" class="screen"> … </div>
+<div id="profile" class="screen"> … </div>
 
 <!-- Bottom Nav -->
-<div class="nav" style="display:none;">
+<div class="nav">
     <button class="active-tab" onclick="switchScreen('home',this)">Home</button>
     <button onclick="switchScreen('groups',this)">Groups</button>
     <button onclick="switchScreen('voting',this)">Voting</button>
