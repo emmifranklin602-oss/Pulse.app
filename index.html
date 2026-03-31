@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Chat</title>
+  <title>Pulse App - Login</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    input { margin: 5px; padding: 10px; width: 250px; }
+    button { padding: 10px 20px; margin: 5px; }
+    #status { margin-top: 10px; color: green; }
+  </style>
 </head>
 <body>
-  <h2>Simple Chat with Login</h2>
+  <h2>Welcome to Pulse</h2>
+  <p>Sign up or log in to continue</p>
 
-  <!-- Login / Signup -->
-  <input id="email" placeholder="Email"><br><br>
-  <input id="password" type="password" placeholder="Password"><br><br>
+  <input id="email" placeholder="Email"><br>
+  <input id="password" type="password" placeholder="Password"><br>
   <button onclick="signup()">Sign Up</button>
   <button onclick="login()">Login</button>
   <button onclick="logout()">Logout</button>
   <p id="status"></p>
 
-  <!-- Chat -->
-  <input id="message" placeholder="Message">
-  <button onclick="send()">Send</button>
-  <ul id="list"></ul>
-
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const client = window.supabase.createClient(
       "https://czqxzvbggafuwedycdfm.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6cXh6dmJnZ2FmdXdlZHljZGZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MzU1MzEsImV4cCI6MjA5MDIxMTUzMX0.Ill1DRvjq6o45Ky3ThaeKcBpqDvHs89iPC7JRxU9C9A"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
     );
 
-    // AUTH
     async function signup() {
       let email = document.getElementById("email").value;
       let password = document.getElementById("password").value;
@@ -38,40 +38,17 @@
       let email = document.getElementById("email").value;
       let password = document.getElementById("password").value;
       let { error } = await client.auth.signInWithPassword({ email, password });
-      document.getElementById("status").textContent = error ? error.message : "Logged in!";
+      if (error) {
+        document.getElementById("status").textContent = error.message;
+      } else {
+        window.location.href = "chat.html"; // redirect to chat after login
+      }
     }
 
     async function logout() {
       await client.auth.signOut();
       document.getElementById("status").textContent = "Logged out!";
     }
-
-    // CHAT
-    async function send() {
-      let m = document.getElementById("message").value;
-      if (!m) { alert("Type something"); return; }
-      let { data: { user } } = await client.auth.getUser();
-      let username = user ? user.email : "Anon";
-      await client.from("messages").insert([{ username, content: m }]);
-      document.getElementById("message").value = "";
-    }
-
-    function add(x) {
-      let li = document.createElement("li");
-      li.textContent = x.username + ": " + x.content;
-      document.getElementById("list").appendChild(li);
-    }
-
-    async function load() {
-      let { data } = await client.from("messages").select("*");
-      data.forEach(add);
-    }
-
-    client.channel("c")
-      .on("postgres_changes", { event: "INSERT", schema: "public", table: "messages" }, p => add(p.new))
-      .subscribe();
-
-    load();
   </script>
 </body>
 </html>
