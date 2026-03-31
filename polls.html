@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Polls</title>
+</head>
+<body>
+  <h2>Create a Poll</h2>
+  <input id="question" placeholder="Poll question"><br><br>
+  <textarea id="options" placeholder='Options (comma separated)'></textarea><br><br>
+  <button onclick="createPoll()">Create Poll</button>
+
+  <h2>Polls</h2>
+  <ul id="pollList"></ul>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const client = window.supabase.createClient(
+      "https://czqxzvbggafuwedycdfm.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    );
+
+    async function createPoll() {
+      let q = document.getElementById("question").value;
+      let opts = document.getElementById("options").value.split(",");
+      await client.from("polls").insert([{ question: q, options: opts }]);
+      document.getElementById("question").value = "";
+      document.getElementById("options").value = "";
+    }
+
+    function showPoll(poll) {
+      let li = document.createElement("li");
+      li.textContent = poll.question + " ";
+      poll.options.forEach(opt => {
+        let btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.onclick = () => vote(poll.id, opt);
+        li.appendChild(btn);
+      });
+      document.getElementById("pollList").appendChild(li);
+    }
+
+    async function vote(pollId, option) {
+      let { data: { user } } = await client.auth.getUser();
+      let voter = user ? user.id : null;
+      await client.from("poll_votes").insert([{ poll_id: pollId, voter_id: voter, option }]);
+    }
+
+    async function loadPolls() {
+      let { data } = await client.from("polls").select("*");
+      data.forEach(showPoll);
+    }
+
+    client.channel("polls")
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "polls" }, p => showPoll(p.new))
+      .subscribe();
+
+    loadPolls();
+  </script>
+</body>
+</html>
