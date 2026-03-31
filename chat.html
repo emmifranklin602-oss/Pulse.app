@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pulse Chat</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    #chatbox { max-width: 500px; margin: auto; border: 1px solid #ccc; padding: 10px; }
+    .bubble { padding: 10px; margin: 5px; border-radius: 10px; max-width: 70%; }
+    .me { background: #dcf8c6; margin-left: auto; }
+    .other { background: #fff; border: 1px solid #ccc; }
+    input { width: 70%; padding: 10px; }
+    button { padding: 10px; }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">Pulse Chat</h2>
+  <div id="chatbox">
+    <div id="messages"></div>
+    <input id="message" placeholder="Type a message">
+    <button onclick="send()">Send</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const client = window.supabase.createClient(
+      "https://czqxzvbggafuwedycdfm.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    );
+
+    async function send() {
+      let m = document.getElementById("message").value;
+      if (!m) return;
+      let { data: { user } } = await client.auth.getUser();
+      let username = user ? user.email : "Anon";
+      await client.from("messages").insert([{ username, content: m }]);
+      document.getElementById("message").value = "";
+    }
+
+    function add(msg) {
+      let div = document.createElement("div");
+      div.className = "bubble " + (msg.username.includes("@") ? "me" : "other");
+      div.textContent = msg.username + ": " + msg.content;
+      document.getElementById("messages").appendChild(div);
+    }
+
+    async function load() {
+      let { data } = await client.from("messages").select("*");
+      data.forEach(add);
+    }
+
+    client.channel("chat")
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "messages" }, p => add(p.new))
+      .subscribe();
+
+    load();
+  </script>
+</body>
+</html>
